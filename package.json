@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Bian2017/ReactSSR#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "react": "^16.5.2"
   }
 }
