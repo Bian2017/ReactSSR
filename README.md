@@ -141,7 +141,16 @@ React代码是一个非常消耗计算性能的代码，因为需要将虚拟DOM
 
 同构简单实现：见[分支daily/0.0.4](https://github.com/Bian2017/ReactSSR/commit/ae5a2317aa437dcfb219220b609f83bd26429b08)
 
-### 1. 消除Warning
+### 1. 同构流程
+
+a. 服务器端运行React代码渲染出HTML；
+b. 发送HTML给浏览器；
+c. 浏览器接收到内容展示；
+d. 浏览器加载JS文件；
+f. JS中的React代码在浏览器端重新执行；
+g. JS中的React代码接管页面操作；
+
+### 2. 消除Warning
 
 在同构的时候，报如下警告：
 
