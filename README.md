@@ -35,14 +35,32 @@ nodemon是node monitor的简写，帮助node实现node文件的监听。
 
 > npm install nodemon -g
 
+2. 安装npm-run-all
+
+> npm install npm-run-all -g
 
 ## 二、package.json脚本说明
 
-使用nodemon监听build目录下的文件改变，当文件发生改变时，则重新运行"node ./build/bundle.js"。
-
 ```json
-"start": "nodemon --watch build --exec node \"./build/bundle.js\"",
+"scripts": {
+  "dev": "npm-run-all --parallel dev:**",
+  "dev:start": "nodemon --watch build --exec node \"./build/bundle.js\"",
+  "dev:build": "webpack --config webpack.config.js --watch"
+}
 ```
+
+### npm-run-all
+
+> npm-run-all --parallel dev:** 
+
+该脚本表示并行执行以dev:开头的所有命令，--parallel表示并行执行。
+
+### 添加命名空间
+在start、build前面添加"dev:"，表示在开发环境下启动服务器或者在开发环境下进行打包流程。
+
+### nodemon
+
+使用nodemon监听build目录下的文件改变，当文件发生改变时，则重新运行"node ./build/bundle.js"。
 
 ## 三、webpack配置
 
