@@ -110,6 +110,11 @@ module.exports = {
 }
 ```
 
+### 3. 提取公共配置
+
+webpack.client.js和webpack.server.js存在一些公用配置，可以通过webpack-merge插件，来减少webpack配置中的重复代码。
+
+
 ## 四、服务端渲染
 
 在React中，虚拟DOM是真实DOM的一个javascript对象映射。实际上，React这些组件在编译或者运行过程中，一开始都是虚拟DOM，换句话说，都是javascript对象。这样就带来一个好处，在做服务器端渲染的时候，就可以将虚拟DOM(javascript对象)很方便的转化成字符串，服务器端就可以给浏览器提供渲染好的字符串。
@@ -136,11 +141,11 @@ React代码是一个非常消耗计算性能的代码，因为需要将虚拟DOM
 
 同构简单实现：见[分支daily/0.0.4](https://github.com/Bian2017/ReactSSR/commit/ae5a2317aa437dcfb219220b609f83bd26429b08)
 
-### 消除Warning
+### 1. 消除Warning
 
 在同构的时候，报如下警告：
 
-> Warning: Did not expect server HTML to contain the text node "    " in <div>.
+> Warning: Did not expect server HTML to contain the text node "" in <div>.
 
 **原代码:**
 
