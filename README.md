@@ -29,13 +29,13 @@ TTFP(首屏展示时间)时间比较长，不具备SEO(搜索引擎优化)排名
 
 ## 一、环境配置
 
-1. 安装nodemon(nodemonitor的简写)
+### 1. 安装nodemon
 
 nodemon是node monitor的简写，帮助node实现node文件的监听。
 
 > npm install nodemon -g
 
-2. 安装npm-run-all
+### 2. 安装npm-run-all
 
 > npm install npm-run-all -g
 
@@ -127,3 +127,53 @@ module.exports = {
 + 服务端渲染---React代码在服务器上执行，消耗的是服务器端性能，可能需十台服务器才能保证项目的稳定性。
 
 React代码是一个非常消耗计算性能的代码，因为需要将虚拟DOM转化成字符串，中间需要进行各种JS运算比对等。如果项目完全没必要使用搜索引擎优化，则可以不用使用React SSR技术。
+
+## 五、同构
+
+在写服务端渲染代码时，若在React组件上绑定事件，会发现事件无法生效。这是因为renderToString方法不会渲染事件，只会渲染组件的基础内容，因此仅有服务端渲染是不够的。具体解决办法：首先服务器端先渲染页面，然后让相同代码像传统React项目在浏览器端再执行一遍，这样就能产生事件了。这就是所谓的同构概念。
+
+同构概念：一套React代码，在服务器端执行一次，在客户端再执行一次。
+
+简易版同构实现：见[分支daily/0.0.4]()
+
+在同构的时候，报如下错误：
+
+> Warning: Did not expect server HTML to contain the text node "    " in <div>.
+
+**原代码:**
+
+```JS
+app.get('/', function (req, res) {
+  res.send(`
+  <html>
+    <head>
+      <title>服务端渲染</title>
+    </head>
+    <body>
+      <div id="root">
+        ${content}
+      </div>
+      <script src='/index.js'></script>
+    </body>
+  </html>
+  `)
+})
+```
+
+这是因为在同构时候，div标签之间不能有空格，将代码置于一行，紧贴着来写即可。
+
+```JS
+app.get('/', function (req, res) {
+  res.send(`
+  <html>
+    <head>
+      <title>服务端渲染</title>
+    </head>
+    <body>
+      <div id="root">${content}</div>
+      <script src='/index.js'></script>
+    </body>
+  </html>
+  `)
+})
+```
