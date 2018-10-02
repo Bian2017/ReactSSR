@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Bian2017/ReactSSR#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

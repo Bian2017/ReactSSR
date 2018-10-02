@@ -1,12 +1,13 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
+import { reducer as homeReducer } from '../containers/Home/store'
 
-const reducer = (previousState = { name: 'Ben' }, action) => {
-  return previousState
-}
+const reducer = combineReducers({
+  home: homeReducer
+})
 
 // 通过函数返回store，解决服务端获取相同store的问题
-const getStore = ()=> {
+const getStore = () => {
   return createStore(reducer, applyMiddleware(thunk))
 }
 

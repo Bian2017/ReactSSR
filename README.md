@@ -190,7 +190,7 @@ const content = renderToString((
 
 注意：上述分支代码存在一个大坑，即store/index.js中代码创建的是单例store。对于server端的render方法来说，当用户访问页面的时候，所有的用户访问的是同一个store，也就是说所有的用户用的是同样数据，正常情况下应该是不同的用户访问的数据不一样。
 
-解决方法：通过函数返回store，修改代码见分支[daily/0.0.10]()。
+解决方法：通过函数返回store，修改代码见分支[daily/0.0.10](https://github.com/Bian2017/ReactSSR/commit/c366cb08b80496dab4d587e367e6422e95fe383a)。
 
 ### 5. 同构Warning处理
 

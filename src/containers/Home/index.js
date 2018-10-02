@@ -1,21 +1,40 @@
-import React from 'react'   //esModule语法
+import React, { Component } from 'react'   //esModule语法
 import Header from '../../components/Header'
 import { connect } from 'react-redux'
+import { getHomeList } from './store/actions'
 
-const Home = props => {
-  return (
-    <div>
-      <Header />
-      <h1>This is {props.name} </h1>
-      <button onClick={() => { console.log('click') }}>
-        按钮
-      </button>
-    </div>
-  )
+class Home extends Component {
+
+  // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
+  // 所以看到的消息列表是在客户端渲染出来的。
+  componentDidMount() {
+    this.props.getHomeList()
+  }
+
+  getList() {
+    const { list } = this.props
+    return list.map(value => <div key={value.id}>{value.title}</div>)
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        {this.getList()}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => ({
-  name: state.name
+  list: state.home.newsList
 })
 
-export default connect(mapStateToProps, null)(Home)
+const mapDispatchToProps = dispatch => ({
+  getHomeList() {
+    console.log('test')
+    dispatch(getHomeList())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
