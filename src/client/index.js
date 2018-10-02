@@ -1,7 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import Routes from '../routes'
 
-import Home from '../containers/Home'
+const App = () => {
+  return (
+    <BrowserRouter>
+      {Routes}
+    </BrowserRouter>
+  )
+}
 
 // 将render方法替换成hydrate
-ReactDOM.hydrate(<Home />, document.getElementById('root'))
+ReactDOM.hydrate(<App />, document.getElementById('root'))

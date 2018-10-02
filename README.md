@@ -143,14 +143,33 @@ React代码是一个非常消耗计算性能的代码，因为需要将虚拟DOM
 
 ### 1. 同构流程
 
-a. 服务器端运行React代码渲染出HTML；
-b. 发送HTML给浏览器；
-c. 浏览器接收到内容展示；
-d. 浏览器加载JS文件；
-f. JS中的React代码在浏览器端重新执行；
-g. JS中的React代码接管页面操作；
++ 服务器端运行React代码渲染出HTML(绑定事此时不生效)；
++ 发送HTML给浏览器；
++ 浏览器接收到内容展示；
++ 浏览器加载JS文件；
++ JS中的React代码在浏览器端重新执行；
++ JS中的React代码接管页面操作；
++ JS代码拿到浏览器上的地址
++ JS代码根据地址返回不同的路由内容；
 
-### 2. 消除Warning
+### 2. 静态路由StaticRouter
+
+在同构的时候，路由需在服务器端跑一遍，在客户端也需跑一遍，这样可以让用户得到更好的用户体验。
+
+使用StaticRouter的时候，必须传递一个参数context，用来做服务器端渲染的时候在渲染的过程中使用context做数据的传递。
+
+StaticRouter区别于BrowserRouter，是无法感知浏览器当前路径。此时需把用户请求的路径传递给StaticRouter，StaticRouter才知道用户现在所处的当前路径是什么，location参数则是实现这个目的。
+
+```JS
+const content = renderToString((
+  <StaticRouter context={{}} location={req.path}>
+    {Routes}
+  </StaticRouter>
+))
+```
+### 4. 同构Warning处理
+
+#### 4.1 标签直接不能有空格
 
 在同构的时候，报如下警告：
 
@@ -193,3 +212,11 @@ app.get('/', function (req, res) {
   `)
 })
 ```
+
+#### 4.2 客户端和服务端渲染内容不统一
+
+当在客户端配置了路由，在服务端没有配置路由，同构的时候，就会报如下警告：
+
+> Warning: Expected server HTML to contain a matching <div> in <div>.
+
+原因：这是由于客户端和服务端渲染出的内容不统一造成的，为了消除警告，此时需在服务端也执行一次路由代码。
