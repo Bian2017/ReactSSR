@@ -173,7 +173,7 @@ const content = renderToString((
 
 在同构的时候，报如下警告：
 
-> Warning: Did not expect server HTML to contain the text node "" in <div>.
+> Warning: Did not expect server HTML to contain the text node "" in \<div>.
 
 **原代码:**
 
@@ -217,6 +217,8 @@ app.get('/', function (req, res) {
 
 当在客户端配置了路由，在服务端没有配置路由，同构的时候，就会报如下警告：
 
-> Warning: Expected server HTML to contain a matching <div> in <div>.
+> Warning: Expected server HTML to contain a matching \<div> in \<div>.
 
 原因：这是由于客户端和服务端渲染出的内容不统一造成的，为了消除警告，此时需在服务端也执行一次路由代码。
+
+代码见[分支daily/0.0.6](https://github.com/Bian2017/ReactSSR/commit/e77028018438178c9f6d20b790270921f1b39259)
