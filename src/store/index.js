@@ -5,6 +5,9 @@ const reducer = (previousState = { name: 'Ben' }, action) => {
   return previousState
 }
 
-const store = createStore(reducer, applyMiddleware(thunk))
+// 通过函数返回store，解决服务端获取相同store的问题
+const getStore = ()=> {
+  return createStore(reducer, applyMiddleware(thunk))
+}
 
-export default store
+export default getStore
