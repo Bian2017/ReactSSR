@@ -133,5 +133,5 @@ webpack.client.js和webpack.server.js存在一些公用配置，可以通过webp
 
 React代码是一个非常消耗计算性能的代码，因为需要将虚拟DOM转化成字符串，中间需要进行各种JS运算比对等。如果项目完全没必要使用搜索引擎优化，则可以不用使用React SSR技术。
 
-## 五、同构
+5. [同构使用小结](https://github.com/Bian2017/ReactSSR/blob/master/docs/doc/%E5%90%8C%E6%9E%84%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93.md)
 
