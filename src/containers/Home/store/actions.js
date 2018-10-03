@@ -14,7 +14,7 @@ const changeList = (list) => ({
 export const getHomeList = () => {
   return (dispatch) => {
     // 返回Promise
-    return axios.get('http://47.95.113.63/ssr/api/news.json?secret=D37msjPeC3')
+    return axios.get('/api/news.json?secret=D37msjPeC3')
       .then((res) => {
         const list = res.data.data
         dispatch(changeList(list))
