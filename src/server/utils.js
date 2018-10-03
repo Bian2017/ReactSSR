@@ -4,7 +4,6 @@ import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 
 export const serverRender = ({ store, routes, req }) => {
-  // 等待promises数组里的所有promise全部执行完毕，再执行下面代码
   const content = renderToString((
     <Provider store={store}>
       <StaticRouter context={{}} location={req.path}>

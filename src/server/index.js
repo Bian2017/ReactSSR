@@ -8,9 +8,8 @@ const app = express()
 app.use(express.static('public'))
 
 app.get('*', function (req, res) {
-  const store = getStore()
-  // store里面填充的数据，需结合当前用户请求地址、路由做判断。
-  const matchedRoutes = matchRoutes(routes, req.path)
+  const store = getStore()                                  // 获取新的store
+  const matchedRoutes = matchRoutes(routes, req.path)       // 匹配路由
 
   const promises = []
   matchedRoutes.forEach(item => {
@@ -19,9 +18,10 @@ app.get('*', function (req, res) {
     }
   })
 
+  // 等待promises数组里的所有promise全部执行完毕，再进行服务端渲染
   Promise.all(promises).then(() => {
     res.send(serverRender({ store, routes, req }))
   })
 })
 
-var server = app.listen(4068)
+const server = app.listen(4068)

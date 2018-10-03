@@ -1,4 +1,4 @@
-import React, { Component } from 'react'   //esModule语法
+import React, { Component } from 'react'
 import Header from '../../components/Header'
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
@@ -6,9 +6,8 @@ import { getHomeList } from './store/actions'
 class Home extends Component {
 
   // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
-  // 所以看到的消息列表是在客户端渲染出来的。
   componentDidMount() {
-    if(!this.props.list.length) {
+    if (!this.props.list.length) {        // 性能优化：服务端已获取数据则不再进行请求
       this.props.getHomeList()
     }
   }
