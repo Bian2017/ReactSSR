@@ -27,7 +27,9 @@ class Home extends Component {
 }
 
 // 给Home组件添加静态方法loadData：负责在服务器端渲染之前，把这个路由需要的数据提取加载好。
-Home.loadData = () => {
+Home.loadData = (store) => {
+  // 返回Promise
+  return store.dispatch(getHomeList())
 }
 
 const mapStateToProps = state => ({

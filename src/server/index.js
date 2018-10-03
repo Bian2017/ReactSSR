@@ -5,7 +5,7 @@ const app = express()
 app.use(express.static('public'))
 
 app.get('*', function (req, res) {
-  res.send(serverRender(req))
+  serverRender(req, res)
 })
 
 var server = app.listen(4068)
