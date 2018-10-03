@@ -192,9 +192,58 @@ const content = renderToString((
 
 解决方法：通过函数返回store，修改代码见分支[daily/0.0.10](https://github.com/Bian2017/ReactSSR/commit/c366cb08b80496dab4d587e367e6422e95fe383a)。
 
-### 5. 同构Warning处理
+### 五、异步数据服务器渲染
 
-#### 5.1 标签直接不能有空格
+同构流程：
+
+1. 服务器接收请求，store值此时为空；
+2. componentDidMount在服务端不会被执行，此时列表内容为空；
+3. 客户端代码执行，store值此时依旧为空；
+4. 客户端执行componentDidMount，列表数据被获取；
+5. store中的列表数据被更新；
+6. 客户端渲染出store中list数据对应的列表内容；
+
+
+参照[链接](https://reacttraining.com/react-router/web/guides/server-rendering)
+
+#### 5.1 loadData方法
+
+给组件添加静态方法
+
+#### 5.2 路由重构
+
+```JS
+export default (
+  <div>
+    <Route path="/" exact component={Home}></Route> 
+    <Route path="/login" exact component={Login}></Route> 
+  </div>
+)
+```
+
+改写路由:
+
+```JS
+export default [{
+  path: '/',
+  component: Home,
+  exact: true,
+  loadData: Home.loadData,
+  key: 'home'
+}, {
+  path: '/login',
+  component: Login,
+  exact: true,
+  key: 'login'
+}]
+```
+
+详见分支[daily/0.0.12]()
+
+
+### 6. 同构Warning处理
+
+#### 6.1 标签直接不能有空格
 
 在同构的时候，报如下警告：
 
@@ -238,7 +287,7 @@ app.get('/', function (req, res) {
 })
 ```
 
-#### 5.2 客户端和服务端渲染内容不统一
+#### 6.2 客户端和服务端渲染内容不统一
 
 当在客户端配置了路由，在服务端没有配置路由，同构的时候，就会报如下警告：
 
