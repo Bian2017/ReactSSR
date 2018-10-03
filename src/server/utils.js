@@ -1,5 +1,6 @@
 import React from 'react'
-import { StaticRouter, Route, matchPath } from 'react-router-dom'
+import { StaticRouter, Route } from 'react-router-dom'
+import { matchRoutes } from 'react-router-config'
 import { renderToString } from 'react-dom/server'
 import routes from '../Routes'
 import { Provider } from 'react-redux'
@@ -7,19 +8,11 @@ import getStore from '../store'
 
 export const serverRender = (req) => {
   const store = getStore()
-  const matchRoutes = []
 
   // store里面填充的数据，需结合当前用户请求地址、路由做判断。
-  routes.some(route => {
-    const match = matchPath(req.path, route)
-   
-    // 如果路由匹配上
-    if (match) {
-      matchRoutes.push(route)
-    }
-  })
+  const matchedRoutes = matchRoutes(routes, req.path)
 
-  console.log('matchRoutes',matchRoutes)
+  console.log('matchRoutes', matchedRoutes)
 
   const content = renderToString((
     <Provider store={store}>

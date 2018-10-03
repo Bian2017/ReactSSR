@@ -238,8 +238,11 @@ export default [{
 }]
 ```
 
-详见分支[daily/0.0.12]()
+详见分支[daily/0.0.12](https://github.com/Bian2017/ReactSSR/commit/e6010661ab5fe925e1eb5d5571c26a6e0146dd48)
 
+### 5.3 多层路由问题
+
+分支[daily/0.0.12](https://github.com/Bian2017/ReactSSR/commit/e6010661ab5fe925e1eb5d5571c26a6e0146dd48)只能解决根路由的匹配，无法解决多层路由下的匹配。当存在多层路由时，此时只会返回根路由的匹配路径，无法匹配下一级路由，此时需要使用[react-router-config](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config)。通过react-router-config提供的matchRoutes来匹配多层路由。
 
 ### 6. 同构Warning处理
 
