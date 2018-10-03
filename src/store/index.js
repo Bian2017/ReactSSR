@@ -11,4 +11,14 @@ const getStore = () => {
   return createStore(reducer, applyMiddleware(thunk))
 }
 
-export default getStore
+const getClientStore = () => {
+  const defaultState = window.context.state
+
+  // 将defaultState作为默认值传给浏览器端
+  return createStore(reducer, defaultState, applyMiddleware(thunk))
+}
+
+export {
+  getStore,
+  getClientStore
+}

@@ -8,7 +8,9 @@ class Home extends Component {
   // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
   // 所以看到的消息列表是在客户端渲染出来的。
   componentDidMount() {
-    this.props.getHomeList()
+    if(!this.props.list.length) {
+      this.props.getHomeList()
+    }
   }
 
   getList() {
@@ -38,7 +40,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getHomeList() {
-    console.log('test')
     dispatch(getHomeList())
   }
 })
