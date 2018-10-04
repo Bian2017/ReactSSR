@@ -1,6 +1,7 @@
 import React from 'react'
 import { StaticRouter, Route } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
+import { renderRoutes } from 'react-router-config'        // 支持多级路由
 import { Provider } from 'react-redux'
 
 export const serverRender = ({ store, routes, req }) => {
@@ -9,8 +10,7 @@ export const serverRender = ({ store, routes, req }) => {
       <StaticRouter context={{}} location={req.path}>
         <div>
           {
-            routes.map(route =>
-              <Route {...route} />)
+            renderRoutes(routes)
           }
         </div>
       </StaticRouter>

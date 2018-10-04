@@ -21,3 +21,10 @@ Node中间层处理
 分支[daily/0.1.1](https://github.com/Bian2017/ReactSSR/commit/1d05358173d26cbfd046e3f4bb41ca5a53161082)通过给每个API请求传递参数(true/false)区分当前API请求是服务端发出还是浏览器端发出。但是当随着页面增多API请求也增多时，给每个API请求传递参数方式也不太可取，后期维护性也较差。
 
 而redux-thunk提供的withExtraArgument方法则可以解决这一问题，它允许给返回的函数传入额外参数。针对这一特性，在创建store的时候，针对浏览器端store，传递浏览器端axios作为定制参数；针对服务端store，传递服务端的axios作为定制参数。然后派发action的时候，就可以通过第三个参数来获取传递过来的定制参数(axios)，此时就实现了不同端请求不同URL地址数据，代码修改见分支[daily/0.1.3](https://github.com/Bian2017/ReactSSR/commit/cd5aaa13f19530bc13dad03ac10fcda6bf58ad6e)
+
+
+## 二、代码优化
+
+### 1. renderRoutes支持多级路由
+
+Home页面和登录页面都包含一个Head导航栏，原先实现是Home组件和Login组件都包含一个Head组件。但这样做其实还是有些啰嗦，可以将Head组件设置一级路由，Home组件和Login组件设置为二级路由，就无需每次都进行包含了。但这样会带来一个二级路由匹配问题，此时可以通过react-router-config提供的renderRoutes进行二级路由的匹配，代码修改见分支[daily/0.1.4]()。
