@@ -27,4 +27,4 @@ Node中间层处理
 
 ### 1. renderRoutes支持多级路由
 
-Home页面和登录页面都包含一个Head导航栏，原先实现是Home组件和Login组件都包含一个Head组件。但这样做其实还是有些啰嗦，可以将Head组件设置一级路由，Home组件和Login组件设置为二级路由，就无需每次都进行包含了。但这样会带来一个二级路由匹配问题，此时可以通过react-router-config提供的renderRoutes进行二级路由的匹配，代码修改见分支[daily/0.1.4]()。
+Home页面和登录页面都包含一个Head导航栏，原先实现是Home组件和Login组件都包含一个Head组件。但这样做其实还是有些啰嗦，可以将Head组件设置一级路由，Home组件和Login组件设置为二级路由，就无需每次都进行包含了。但这样会带来一个二级路由匹配问题，此时可以通过react-router-config提供的renderRoutes进行二级路由的匹配，代码修改见分支[daily/0.1.4](https://github.com/Bian2017/ReactSSR/commit/c30b3c757161d98826c9401aeaad642822c5ee11)。

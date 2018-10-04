@@ -1,11 +1,16 @@
+/**
+ * 存放整个工程的Reducer
+ */
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { reducer as homeReducer } from '../containers/Home/store'
+import { reducer as headReducer } from '../components/Header/store'
 import cAxios from '../client/request'
 import sAxios from '../server/request'
 
 const reducer = combineReducers({
-  home: homeReducer
+  home: homeReducer,
+  header: headReducer
 })
 
 /**
