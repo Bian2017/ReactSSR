@@ -5,7 +5,6 @@ const initState = {
 }
 
 export default (previousState = initState, action) => {
-  console.log('action', action.type)
   switch (action.type) {
     case CHANGE_LOGIN:
       return {
@@ -13,7 +12,6 @@ export default (previousState = initState, action) => {
         login: action.payload
       }
     default:
-      console.log('其他状态', action.type, action.payload)
       return previousState
   }
 }

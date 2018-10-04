@@ -11,7 +11,6 @@ app.use(express.static('public'))
 // 将api请求代理到http://47.95.113.63
 app.use('/api', proxy('http://47.95.113.63', {
   proxyReqPathResolver: function (req) {
-    console.log('req.url', req.url)
     return `/ssr/api`+ req.url
   }
 }))

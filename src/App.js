@@ -16,7 +16,8 @@ const App = (props) => {
 }
 
 App.loadData = (store) => {
-  store.dispatch(actions.getHeaderInfo())
+  // 通过return返回Promise
+  return store.dispatch(actions.getHeaderInfo())   
 }
 
 export default App 
