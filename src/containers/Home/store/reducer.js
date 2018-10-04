@@ -9,6 +9,7 @@ const initState = {
 }
 
 export default (previousState = initState, action) => {
+  console.log('xxx', action.type)
   switch (action.type) {
     case CHANGE_LIST:
       return {
