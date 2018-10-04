@@ -16,7 +16,7 @@ app.use('/api', proxy('http://47.95.113.63', {
 }))
 
 app.get('*', function (req, res) {
-  const store = getStore()                                  // 获取新的store
+  const store = getStore(req)                                  // 获取新的store
   const matchedRoutes = matchRoutes(routes, req.path)       // 匹配路由
 
   const promises = []

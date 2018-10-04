@@ -22,6 +22,20 @@ Node中间层处理
 
 而redux-thunk提供的withExtraArgument方法则可以解决这一问题，它允许给返回的函数传入额外参数。针对这一特性，在创建store的时候，针对浏览器端store，传递浏览器端axios作为定制参数；针对服务端store，传递服务端的axios作为定制参数。然后派发action的时候，就可以通过第三个参数来获取传递过来的定制参数(axios)，此时就实现了不同端请求不同URL地址数据，代码修改见分支[daily/0.1.3](https://github.com/Bian2017/ReactSSR/commit/cd5aaa13f19530bc13dad03ac10fcda6bf58ad6e)
 
+### 2. cookie传递问题
+
+用户的登录状态为已登录，并已获取cookie。刷新页面，依旧显示未登录，这是由于以下原因造成的：
+
++ 刚进入页面，处于非登录状态；
++ 用户点击登录按钮，进行登录操作；
+  + 浏览器发请求给NodeJS服务器；
+  + 转发给API服务器，进行登陆；
+  + API服务器生成cookie；
+  + 浏览器上存在cookie，登录成功；
++ 当用户重新刷新页面的时候：
+  + 浏览器去请求HTML(携带了cookie)；
+  + NodeJS服务器进行服务器端渲染；
+  + 进行服务端渲染，首先要去API服务器取数据(没有携带cookie)
 
 ## 二、代码优化
 

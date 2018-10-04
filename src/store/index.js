@@ -16,8 +16,8 @@ const reducer = combineReducers({
 /**
  * 服务端store: 通过函数返回store，解决服务端获取相同store的问题
  */
-const getStore = () => {
-  return createStore(reducer, applyMiddleware(thunk.withExtraArgument(sAxios)))
+const getStore = (req) => {
+  return createStore(reducer, applyMiddleware(thunk.withExtraArgument(sAxios(req))))
 }
 
 /**
