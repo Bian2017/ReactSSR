@@ -15,3 +15,9 @@ Node中间层处理
 针对这一问题，可以判断下当前运行环境是在服务端还是在浏览器端，然后依据环境的不同让axios访问不同的URL，代码修改见分支[daily/0.1.1](https://github.com/Bian2017/ReactSSR/commit/65a9b8509c40c0895ee9d7284d33d85b54cc27d6)。
 
 不过上述修改有点Low，因为若针对每一个API请求都进行上述判断，则略显冗余、可维护性会较差。此时可以通过axios提供的instance来进行处理，代码修改见分支[daily/0.1.2](https://github.com/Bian2017/ReactSSR/commit/1d05358173d26cbfd046e3f4bb41ca5a53161082)。
+
+### 1.1 withExtraArgument
+
+分支[daily/0.1.2](https://github.com/Bian2017/ReactSSR/commit/1d05358173d26cbfd046e3f4bb41ca5a53161082)通过给每个API请求传递参数(true or false)区分当前API请求是服务端请求还是浏览器端请求。但是当随着页面增多，API请求增多时，给每个API请求传递参数方式也不太可取，后期维护性也比较差。
+
+此时，可以通过redux-thunk提供的withExtraArgument方法来解决这一问题，它允许给返回的函数传入额外的参数。针对这一特性，在创建store的时候，针对浏览器端store，传递浏览器端的axios；针对服务端store，传递服务端的axios。然后在派发action的时候，可以通过第三参数获取传进来的axios，此时就可以进行数据的请求。

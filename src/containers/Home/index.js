@@ -8,7 +8,7 @@ class Home extends Component {
   // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
   componentDidMount() {
     if (!this.props.list.length) {        // 性能优化：服务端已获取数据则不再进行请求
-      this.props.getHomeList(false)       // 客户端渲染：传递false
+      this.props.getHomeList()       
     }
   }
 
@@ -30,7 +30,7 @@ class Home extends Component {
 // 给Home组件添加静态方法loadData：负责在服务器端渲染之前，把这个路由需要的数据提取加载好。
 Home.loadData = (store) => {
   // 返回Promise
-  return store.dispatch(getHomeList(true))        // 服务端渲染，传递true
+  return store.dispatch(getHomeList())
 }
 
 const mapStateToProps = state => ({
