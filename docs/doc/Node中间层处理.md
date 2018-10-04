@@ -37,6 +37,8 @@ Node中间层处理
   + NodeJS服务器进行服务器端渲染；
   + 进行服务端渲染，首先要去API服务器取数据(没有携带cookie)
 
+代码修改见分支[daily/0.1.8](https://github.com/Bian2017/ReactSSR/commit/e1d89493da643150439520a2287c37aee1775760)
+
 ## 二、代码优化
 
 ### 1. renderRoutes支持多级路由

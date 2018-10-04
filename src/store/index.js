@@ -3,14 +3,16 @@
  */
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import { reducer as homeReducer } from '../containers/Home/store'
 import { reducer as headReducer } from '../components/Header/store/'
+import { reducer as homeReducer } from '../containers/Home/store/'
+import { reducer as translationReducer } from '../containers/Translation/store/'
 import cAxios from '../client/request'
 import sAxios from '../server/request'
 
 const reducer = combineReducers({
   home: homeReducer,
-  header: headReducer
+  header: headReducer,
+  translation: translationReducer
 })
 
 /**
