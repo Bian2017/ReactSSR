@@ -17,9 +17,12 @@ export const serverRender = ({ store, routes, req, context }) => {
     </Provider>
   ))
 
+  const cssStr = context.css ? context.css : ''
+
   return `<html>
       <head>
         <title>服务端渲染</title>
+        <style>${cssStr}</style>
       </head>
       <body>
         <div id="root">${content}</div>

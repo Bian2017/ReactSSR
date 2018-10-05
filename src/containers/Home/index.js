@@ -5,10 +5,17 @@ import styles from './index.css'
 
 class Home extends Component {
 
+  componentWillMount() {
+    // 浏览器端渲染的时候，styles上没有_getCss()方法，所以需判断下当前环境
+    if (this.props.staticContext) {
+      this.props.staticContext.css = styles._getCss()
+    }
+  }
+
   // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
   componentDidMount() {
     if (!this.props.list.length) {        // 性能优化：服务端已获取数据则不再进行请求
-      this.props.getHomeList()       
+      this.props.getHomeList()
     }
   }
 
