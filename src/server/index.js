@@ -11,7 +11,7 @@ app.use(express.static('public'))
 // 将api请求代理到http://47.95.113.63
 app.use('/api', proxy('http://47.95.113.63', {
   proxyReqPathResolver: function (req) {
-    return `/ssr/api`+ req.url
+    return `/ssr/api` + req.url
   }
 }))
 
@@ -28,7 +28,15 @@ app.get('*', function (req, res) {
 
   // 等待promises数组里的所有promise全部执行完毕，再进行服务端渲染
   Promise.all(promises).then(() => {
-    res.send(serverRender({ store, routes, req }))
+    const context = {}
+    const html = serverRender({ store, routes, req, context })      // 匹配的NotFound组件会修改context值
+
+    if (context.NOT_FOUND) {
+      res.status(404)
+      res.send(html)
+    } else {
+      res.send(html)
+    }
   })
 })
 

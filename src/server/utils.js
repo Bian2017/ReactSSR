@@ -4,10 +4,10 @@ import { renderToString } from 'react-dom/server'
 import { renderRoutes } from 'react-router-config'        // 支持多级路由
 import { Provider } from 'react-redux'
 
-export const serverRender = ({ store, routes, req }) => {
+export const serverRender = ({ store, routes, req, context }) => {
   const content = renderToString((
     <Provider store={store}>
-      <StaticRouter context={{}} location={req.path}>
+      <StaticRouter context={context} location={req.path}>
         <div>
           {
             renderRoutes(routes)
