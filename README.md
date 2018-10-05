@@ -137,3 +137,5 @@ React代码是一个非常消耗计算性能的代码，因为需要将虚拟DOM
 
 6. [Node中间层处理](https://github.com/Bian2017/ReactSSR/blob/master/docs/doc/Node%E4%B8%AD%E9%97%B4%E5%B1%82%E5%A4%84%E7%90%86.md)
 
+7. SEO
+
