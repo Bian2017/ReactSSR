@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTranslationList } from './store/actions'
 import { Redirect } from 'react-router-dom'
+import HocStyle from '../../HocStyle'
+import styles from './index.css'
 
 class Translation extends Component {
 
@@ -18,7 +20,7 @@ class Translation extends Component {
   }
 
   render() {
-    return this.props.login ? (<div>
+    return this.props.login ? (<div className={styles.content}>
       {this.getList()}
     </div>) : <Redirect to='/' />
   }
@@ -36,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 // 给Translation组件添加静态方法loadData，不代表ExportTranslation会有这个静态方法(虽然connect会自动添加静态方法)
-const ExportTranslation = connect(mapStateToProps, mapDispatchToProps)(Translation)
+const ExportTranslation = connect(mapStateToProps, mapDispatchToProps)(HocStyle(Translation, styles))
 
 ExportTranslation.loadData = (store) => {
   return store.dispatch(getTranslationList())    // 返回Promise

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
 import styles from './index.css'
+import HocStyle from '../../HocStyle'
 
 class Home extends Component {
   componentWillMount() {
@@ -40,7 +41,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const ExportHome = connect(mapStateToProps, mapDispatchToProps)(Home)
+const ExportHome = connect(mapStateToProps, mapDispatchToProps)(HocStyle(Home, styles))
 
 // 给Home组件添加静态方法loadData，不代表ExportHome会有这个静态方法(虽然connect会自动添加静态方法)
 ExportHome.loadData = (store) => {        // 静态方法loadData：负责在服务器端渲染之前，把这个路由需要的数据提取加载好。

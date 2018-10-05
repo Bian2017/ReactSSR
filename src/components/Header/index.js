@@ -3,15 +3,9 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { actions } from './store/index'
 import styles from './index.css'
+import HocStyle from '../../HocStyle'
 
 class Header extends Component {
-  componentWillMount() {
-    // Header不是路由组件，没有staticContext属性，需父组件透传下来
-    if (this.props.staticContext) {
-      this.props.staticContext.css.push(styles._getCss())
-    }
-  }
-
   render() {
     const { login, handleLogin, handleLogout } = this.props
 
@@ -29,7 +23,6 @@ class Header extends Component {
   }
 }
 
-
 const mapState = (state) => ({
   login: state.header.login
 })
@@ -44,4 +37,4 @@ const mapDispatch = (dispatch) => ({
   }
 })
 
-export default connect(mapState, mapDispatch)(Header)
+export default connect(mapState, mapDispatch)(HocStyle(Header, styles))
