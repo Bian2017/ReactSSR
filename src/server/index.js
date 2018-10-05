@@ -31,7 +31,9 @@ app.get('*', function (req, res) {
     const context = {}
     const html = serverRender({ store, routes, req, context })      // 匹配的NotFound组件会修改context值
 
-    if (context.NOT_FOUND) {
+    if(context.action === 'REPLACE') {      // react-router-config会自动往context中注入参数
+      res.redirect(301, context.url)
+    } else if (context.NOT_FOUND) {
       res.status(404)
       res.send(html)
     } else {
