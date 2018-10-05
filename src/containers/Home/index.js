@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
-import './index.css'
+import styles from './index.css'
 
 class Home extends Component {
 
@@ -19,7 +19,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.content}>
         {this.getList()}
       </div>
     )

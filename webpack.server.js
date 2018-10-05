@@ -19,7 +19,7 @@ const serverCfg = {
   module: {
     rules: [{
       test: /\.css?$/,
-      use: ['style-loader', {
+      use: ['isomorphic-style-loader', {
         loader: 'css-loader',
         options: {
           importLoaders: 1,
