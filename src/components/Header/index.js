@@ -2,12 +2,20 @@ import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { actions } from './store/index'
+import styles from './index.css'
 
 class Header extends Component {
+  componentWillMount() {
+    // Header不是路由组件，没有staticContext属性，需父组件透传下来
+    if (this.props.staticContext) {
+      this.props.staticContext.css.push(styles._getCss())
+    }
+  }
+
   render() {
     const { login, handleLogin, handleLogout } = this.props
 
-    return (<div>
+    return (<div className={styles.header}>
       <Link to='/'>首页</Link>
       <br />
       {

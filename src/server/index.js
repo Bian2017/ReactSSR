@@ -32,7 +32,7 @@ app.get('*', function (req, res) {
 
   // 等待promises数组里的所有promise全部执行完毕，再进行服务端渲染
   Promise.all(promises).then(() => {
-    const context = {}
+    const context = { css: [] }
     const html = serverRender({ store, routes, req, context })      // 匹配的NotFound组件会修改context值
 
     if (context.action === 'REPLACE') {      // react-router-config会自动往context中注入参数
