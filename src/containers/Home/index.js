@@ -4,7 +4,6 @@ import { getHomeList } from './store/actions'
 import styles from './index.css'
 
 class Home extends Component {
-
   componentWillMount() {
     // 浏览器端渲染的时候，styles上没有_getCss()方法，所以需判断下当前环境
     if (this.props.staticContext) {
@@ -25,18 +24,10 @@ class Home extends Component {
   }
 
   render() {
-    return (
-      <div className={styles.content}>
-        {this.getList()}
-      </div>
-    )
+    return (<div className={styles.content}>
+      {this.getList()}
+    </div>)
   }
-}
-
-// 给Home组件添加静态方法loadData：负责在服务器端渲染之前，把这个路由需要的数据提取加载好。
-Home.loadData = (store) => {
-  // 返回Promise
-  return store.dispatch(getHomeList())
 }
 
 const mapStateToProps = state => ({
@@ -49,4 +40,11 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+const ExportHome = connect(mapStateToProps, mapDispatchToProps)(Home)
+
+// 给Home组件添加静态方法loadData，不代表ExportHome会有这个静态方法(虽然connect会自动添加静态方法)
+ExportHome.loadData = (store) => {        // 静态方法loadData：负责在服务器端渲染之前，把这个路由需要的数据提取加载好。
+  return store.dispatch(getHomeList())    // 返回Promise
+}
+
+export default ExportHome

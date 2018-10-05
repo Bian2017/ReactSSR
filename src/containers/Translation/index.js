@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 
 class Translation extends Component {
 
-  //   // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
+  // componentDidMount生命周期函数只会在客户端渲染的时候才会执行，在服务端渲染的时候不会执行。
   componentDidMount() {
     if (!this.props.list.length) {        // 性能优化：服务端已获取数据则不再进行请求
       this.props.getTransList()
@@ -24,11 +24,6 @@ class Translation extends Component {
   }
 }
 
-Translation.loadData = (store) => {
-  // 返回Promise
-  return store.dispatch(getTranslationList())
-}
-
 const mapStateToProps = state => ({
   list: state.translation.translationList,
   login: state.header.login
@@ -40,4 +35,11 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Translation)
+// 给Translation组件添加静态方法loadData，不代表ExportTranslation会有这个静态方法(虽然connect会自动添加静态方法)
+const ExportTranslation = connect(mapStateToProps, mapDispatchToProps)(Translation)
+
+ExportTranslation.loadData = (store) => {
+  return store.dispatch(getTranslationList())    // 返回Promise
+}
+
+export default ExportTranslation 
