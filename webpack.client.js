@@ -11,6 +11,19 @@ const clientCfg = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'public')      //__dirname: 服务器端代码的根路径
+  },
+  module: {
+    rules: [{
+      test: /\.css?$/,
+      use: ['style-loader', {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+          modules: true,              // 支持CSS模块
+          localIdentName: '[name]_[local]_[hash:base64:5]'    //定制class名字
+        }
+      }]
+    }]
   }
 }
 
