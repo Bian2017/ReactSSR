@@ -22,7 +22,11 @@ app.get('*', function (req, res) {
   const promises = []
   matchedRoutes.forEach(item => {
     if (item.route.loadData) {
-      promises.push(item.route.loadData(store))
+      // 额外封装一层Promise:对应加载的组件无论成功或者失败，都让外层的Promise执行成功。
+      const promise = new Promise((resolve, reject) => {
+        item.route.loadData(store).then(resolve).catch(resolve)
+      })
+      promises.push(promise)
     }
   })
 
@@ -31,7 +35,7 @@ app.get('*', function (req, res) {
     const context = {}
     const html = serverRender({ store, routes, req, context })      // 匹配的NotFound组件会修改context值
 
-    if(context.action === 'REPLACE') {      // react-router-config会自动往context中注入参数
+    if (context.action === 'REPLACE') {      // react-router-config会自动往context中注入参数
       res.redirect(301, context.url)
     } else if (context.NOT_FOUND) {
       res.status(404)
