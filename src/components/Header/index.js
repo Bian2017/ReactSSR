@@ -10,13 +10,12 @@ class Header extends Component {
     const { login, handleLogin, handleLogout } = this.props
 
     return (<div className={styles.header}>
-      <Link to='/'>首页</Link>
-      <br />
+      <Link to='/' className={styles.item}>首页</Link>
       {
         login ? <Fragment>
-          <Link to='/translation'>翻译列表</Link>
-          <div onClick={() => handleLogout()}>注销</div>
-        </Fragment> : <div onClick={() => handleLogin()}>登录</div>
+          <Link to='/translation' className={styles.item}>翻译表</Link>
+          <span className={styles.item} onClick={() => handleLogout()}>注销</span>
+        </Fragment> : <span className={styles.item} onClick={() => handleLogin()}>登录</span>
       }
       <br />
     </div>)

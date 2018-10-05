@@ -1,3 +1,11 @@
 .content {
   background: #fff;
+  padding: 20px;
+}
+
+.list {
+  margin: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #666;
 }

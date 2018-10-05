@@ -21,7 +21,7 @@ class Home extends Component {
 
   getList() {
     const { list } = this.props
-    return list.map(value => <div key={value.id}>{value.title}</div>)
+    return list.map(value => <div key={value.id} className={styles.list}>{value.title}</div>)
   }
 
   render() {
