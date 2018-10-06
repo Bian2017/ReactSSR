@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { getHomeList } from './store/actions'
 import styles from './index.css'
 import HocStyle from '../../HocStyle'
@@ -25,9 +26,15 @@ class Home extends Component {
   }
 
   render() {
-    return (<div className={styles.content}>
-      {this.getList()}
-    </div>)
+    return (<Fragment>
+        <Helmet>
+          <title>英文新闻页面(React SSR)---丰富多彩的资讯</title>
+          <meta name="description" content="这是React SSR的英文新闻页面" />
+        </Helmet>
+        <div className={styles.content}>
+          {this.getList()}
+        </div>
+      </Fragment>)
   }
 }
 
